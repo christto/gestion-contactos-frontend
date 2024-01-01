@@ -1,0 +1,29 @@
+<h2>Lista de contactos</h2>
+<br/>
+<form class="form-inline my-4 my-lg-0">
+  <input class="form-control mr-sm-10" type="search" placeholder="Buscar por nombre o teléfono" aria-label="Buscar" (input)="buscarContactos()" [(ngModel)]="textoBusqueda" [ngModelOptions]="{standalone: true}" style="width: 40%;">
+  <!-- <button *ngIf="textoBusqueda && textoBusqueda.length > 0" class="btn btn-outline-secondary my-2 my-sm-0" type="button" style="margin-left : 10px;" (click)="limpiarBusqueda()">Limpiar</button> -->
+</form>
+<br/>
+<table class="table table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Teléfono</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor= "let contacto of contactos">
+      <td>{{contacto.nombre}}</td>
+      <td>{{contacto.apellido}}</td>
+      <td>{{contacto.telefono}}</td>
+      <td>
+        <button (click)= "actualizarContacto(contacto.id)" class="btn btn-outline-info">Editar</button>
+        <button (click)= "eliminarContacto(contacto.id)" class="btn btn-outline-danger" style="margin-left : 10px;">Eliminar</button>
+        <button (click)= "verDetallesDelContacto(contacto.id)" class="btn btn-outline-primary" style="margin-left : 10px;">Detalles</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,54 @@
+<div class="col-md-6 offset-md-3">
+  <h3 class="text-center">Detalles del contacto</h3>
+  <form #contactoForm = "ngForm">
+
+    <div class="form-group">
+      <label>Id </label>
+      <input type = "number"
+      class="form-control"
+      id = "id"
+      [(ngModel)] = "contacto.id"
+      name = "id"
+      disabled="true"
+      #id = "ngModel"
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Nombre </label>
+      <input type = "text"
+      class="form-control"
+      id = "nombre"
+      [(ngModel)] = "contacto.nombre"
+      name = "nombre"
+      disabled="true"
+      #nombre = "ngModel"
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Apellido </label>
+      <input type = "text"
+      class="form-control"
+      id = "apellido"
+      [(ngModel)] = "contacto.apellido"
+      name = "apellido"
+      disabled="true"
+      #apellido = "ngModel"
+      >
+    </div>
+
+    <div class="form-group">
+      <label>Teléfono</label>
+      <input type="tel"
+      class="form-control"
+      id="telefono"
+      [(ngModel)]="contacto.telefono"
+      name="telefono"
+      disabled="true"
+      #telefono="ngModel">
+    </div>
+
+    <button (click)="onSubmit()" class="btn btn-success">Aceptar</button>
+  </form>
+</div>
