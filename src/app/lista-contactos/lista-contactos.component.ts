@@ -50,6 +50,8 @@ export class ListaContactosComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.contactoServicio.eliminarContacto(this.usuarioId, contactoId).subscribe(dato => {
+          this.textoBusqueda = '';
+          this.obtenerContactos();
           swal(
             'Contacto eliminado',
             'El contacto ha sido eliminado con exito',

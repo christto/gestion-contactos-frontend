@@ -19,7 +19,7 @@ export class ActualizarContactoComponent implements OnInit {
     this.contactoId = this.route.snapshot.params['id'];
     this.contactoService.obtenerContactoPorId(this.contactoId).subscribe(dato => {
       this.contacto = dato;
-    }, error => console.log(error));
+    });
   }
 
   irAlaListaDeContactos() {

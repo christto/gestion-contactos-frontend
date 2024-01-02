@@ -29,7 +29,7 @@ export class LoginComponent {
         this.userService.setName(response.name);
         swal(
           'Inicio de sesión',
-          `¡Bienvenido ${this.userService.getName()}!`,
+          `¡Hola ${this.userService.getName()}!`,
           'info'
         )
       },

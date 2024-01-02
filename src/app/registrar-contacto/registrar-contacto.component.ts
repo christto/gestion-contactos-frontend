@@ -22,7 +22,6 @@ export class RegistrarContactoComponent implements OnInit {
 
   guardarContacto() {
     this.contactoServicio.registrarContacto(this.usuarioId, this.contacto).subscribe(dato => {
-      console.log(dato);
       this.irALaListaDeContactos();
     }, error => swal('Error', 'No se guardó el contacto. Error: Ya existe el número telefónico.', 'error'));
   }
