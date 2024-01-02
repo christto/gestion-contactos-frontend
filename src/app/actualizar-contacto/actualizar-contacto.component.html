@@ -1,28 +1,19 @@
 <div class="col-md-6 offset-md-3">
   <h3 class="text-center">Edición de contacto</h3>
-  <form (ngSubmit)= "onSubmit()" #contactoForm = "ngForm">
+  <form (ngSubmit)="onSubmit()" #contactoForm="ngForm">
 
     <div class="form-group">
       <label>Nombre: </label>
-      <input type = "text"
-      class="form-control"
-      id = "nombre"
-      [(ngModel)] = "contacto.nombre"
-      name = "nombre"
-      required
-      minlength="4"
-      maxlength="60"
-      placeholder="Digite su nombre "
-      #nombre = "ngModel"
-      >
-      <div class="alert alert-danger" *ngIf= "nombre.invalid && (nombre.dirty || nombre.touched)">
-        <div *ngIf = "nombre.errors.required">
+      <input type="text" class="form-control" id="nombre" [(ngModel)]="contacto.nombre" name="nombre" required
+        minlength="4" maxlength="60" placeholder="Digite su nombre " #nombre="ngModel">
+      <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+        <div *ngIf="nombre.errors.required">
           Digite su nombre
         </div>
-        <div *ngIf = "nombre.errors.minlength">
+        <div *ngIf="nombre.errors.minlength">
           El nombre debe contener como mínimo 4 caracteres
         </div>
-        <div *ngIf = "nombre.errors.maxlength">
+        <div *ngIf="nombre.errors.maxlength">
           El nombre debe tener como máximo 10 caracteres
         </div>
       </div>
@@ -30,25 +21,16 @@
 
     <div class="form-group">
       <label>Apellido: </label>
-      <input type = "text"
-      class="form-control"
-      id = "apellido"
-      [(ngModel)] = "contacto.apellido"
-      name = "apellido"
-      required
-      minlength="4"
-      maxlength="60"
-      placeholder="Digite su apellido "
-      #apellido = "ngModel"
-      >
-      <div class="alert alert-danger" *ngIf= "apellido.invalid && (apellido.dirty || apellido.touched)">
-        <div *ngIf = "apellido.errors.required">
+      <input type="text" class="form-control" id="apellido" [(ngModel)]="contacto.apellido" name="apellido" required
+        minlength="4" maxlength="60" placeholder="Digite su apellido " #apellido="ngModel">
+      <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+        <div *ngIf="apellido.errors.required">
           Digite su apellido por favor
         </div>
-        <div *ngIf = "apellido.errors.minlength">
+        <div *ngIf="apellido.errors.minlength">
           El apellido debe contener como mínimo 4 caracteres
         </div>
-        <div *ngIf = "apellido.errors.maxlength">
+        <div *ngIf="apellido.errors.maxlength">
           El apellido debe tener como máximo 10 caracteres
         </div>
       </div>
@@ -56,15 +38,8 @@
 
     <div class="form-group">
       <label>Teléfono:</label>
-      <input type="tel"
-             class="form-control"
-             id="telefono"
-             [(ngModel)]="contacto.telefono"
-             name="telefono"
-             pattern="[0-9]{10}"
-             required
-             placeholder="Digite su teléfono"
-             #telefono="ngModel">
+      <input type="tel" class="form-control" id="telefono" [(ngModel)]="contacto.telefono" name="telefono"
+        pattern="[0-9]{10}" required placeholder="Digite su teléfono" #telefono="ngModel">
       <div class="alert alert-danger" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
         <div *ngIf="telefono.errors.required">
           Digite su teléfono
@@ -75,6 +50,6 @@
       </div>
     </div>
 
-    <button class="btn btn-success" [disabled]= "!contactoForm.form.valid">Guardar</button>
+    <button class="btn btn-success" [disabled]="!contactoForm.form.valid">Guardar</button>
   </form>
 </div>

@@ -8,9 +8,9 @@ describe('RegistrarContactoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegistrarContactoComponent ]
+      declarations: [RegistrarContactoComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

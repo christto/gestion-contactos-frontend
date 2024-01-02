@@ -12,24 +12,26 @@ import swal from 'sweetalert2';
 export class RegistrarContactoComponent implements OnInit {
 
   contacto: Contacto = new Contacto();
-  constructor(private contactoServicio:ContactoService,private router:Router) { }
+  constructor(private contactoServicio: ContactoService, private router: Router) { }
+
+  usuarioId: number = 2;
 
   ngOnInit(): void {
   }
 
-  guardarContacto(){
-    this.contactoServicio.registrarContacto(this.contacto).subscribe(dato => {
+  guardarContacto() {
+    this.contactoServicio.registrarContacto(this.usuarioId, this.contacto).subscribe(dato => {
       console.log(dato);
       this.irALaListaDeContactos();
     }, error => swal('Error', 'No se guardó el contacto. Error: Ya existe el número telefónico.', 'error'));
   }
 
-  irALaListaDeContactos(){
+  irALaListaDeContactos() {
     this.router.navigate(['/contactos']);
-    swal('Contacto registrado',`El contacto ${this.contacto.nombre} ha sido registrado con exito`,'success');
+    swal('Contacto registrado', `El contacto ${this.contacto.nombre} ha sido registrado con exito`, 'success');
   }
 
-  onSubmit(){
+  onSubmit() {
     this.guardarContacto();
   }
 }
