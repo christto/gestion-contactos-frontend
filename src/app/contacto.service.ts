@@ -8,7 +8,6 @@ import { Contacto } from './contacto';
 })
 export class ContactoService {
 
-  //Esta URL obtiene el listado de todos los contactos en el backend
   private baseURL = "http://localhost:8080/api/v1/";
 
   constructor(private httpClient: HttpClient) { }

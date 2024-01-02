@@ -3,6 +3,7 @@ import { ContactoService } from './../contacto.service';
 import { Contacto } from './../contacto';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-lista-contactos',
@@ -14,9 +15,10 @@ export class ListaContactosComponent implements OnInit {
   contactos: Contacto[];
   textoBusqueda: string = '';
 
-  usuarioId: number = 2;
+  
+  constructor(private contactoServicio: ContactoService, private router: Router, private userService: UserService) { }
 
-  constructor(private contactoServicio: ContactoService, private router: Router) { }
+  usuarioId: number = parseInt(this.userService.getUserId() || '0', 10);
 
   ngOnInit(): void {
     this.obtenerContactos();
@@ -28,7 +30,7 @@ export class ListaContactosComponent implements OnInit {
 
   private obtenerContactos() {
     this.contactoServicio.obtenerListaDeContactos(this.usuarioId).subscribe(dato => {
-      this.contactos = dato;
+      this.contactos = dato.sort((a, b) => a.nombre.localeCompare(b.nombre));
     });
   }
 
@@ -48,8 +50,6 @@ export class ListaContactosComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.contactoServicio.eliminarContacto(this.usuarioId, contactoId).subscribe(dato => {
-          console.log(dato);
-          this.obtenerContactos();
           swal(
             'Contacto eliminado',
             'El contacto ha sido eliminado con exito',

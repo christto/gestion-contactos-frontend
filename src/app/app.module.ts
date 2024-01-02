@@ -9,6 +9,7 @@ import { RegistrarContactoComponent } from './registrar-contacto/registrar-conta
 import { FormsModule } from '@angular/forms';
 import { ActualizarContactoComponent } from './actualizar-contacto/actualizar-contacto.component';
 import { ContactoDetallesComponent } from './contacto-detalles/contacto-detalles.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ContactoDetallesComponent } from './contacto-detalles/contacto-detalles
     ListaContactosComponent,
     RegistrarContactoComponent,
     ActualizarContactoComponent,
-    ContactoDetallesComponent
+    ContactoDetallesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
