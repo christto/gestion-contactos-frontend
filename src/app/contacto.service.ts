@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiResponse } from './api-response';
 import { Contacto } from './contacto';
 
 @Injectable({
@@ -8,37 +9,32 @@ import { Contacto } from './contacto';
 })
 export class ContactoService {
 
-  private baseURL = "http://localhost:8080/api/v1/";
+  private baseURL = "http://18.234.181.80/api/v1";
 
   constructor(private httpClient: HttpClient) { }
 
-  //Método para listar todos los contactos
-  obtenerListaDeContactos(usuarioId: number): Observable<Contacto[]> {
-    return this.httpClient.get<Contacto[]>(`${this.baseURL}/contactos/${usuarioId}`);
+  // Método para listar todos los contactos
+  obtenerListaDeContactos(usuarioId: number): Observable<ApiResponse<Contacto[]>> {
+    return this.httpClient.get<ApiResponse<Contacto[]>>(`${this.baseURL}/contactos/${usuarioId}`);
   }
 
-  //Método para guardar el contacto
-  registrarContacto(usuarioId: number, contacto: Contacto): Observable<Object> {
-    return this.httpClient.post(`${this.baseURL}/contactos/${usuarioId}`, contacto);
+  // Método para guardar el contacto
+  registrarContacto(usuarioId: number, contacto: Contacto): Observable<ApiResponse<string>> {
+    return this.httpClient.post<ApiResponse<string>>(`${this.baseURL}/contactos/${usuarioId}`, contacto);
   }
 
-  //Método para buscar un contacto por id
-  obtenerContactoPorId(contactoId: number): Observable<Contacto> {
-    return this.httpClient.get<Contacto>(`${this.baseURL}/contacto/${contactoId}`);
+  // Método para buscar un contacto por id
+  obtenerContactoPorId(contactoId: number): Observable<ApiResponse<Contacto>> {
+    return this.httpClient.get<ApiResponse<Contacto>>(`${this.baseURL}/contacto/${contactoId}`);
   }
 
-  //Método para buscar contactos por nombre
-  obtenerContactosPorNombre(nombre: string): Observable<Contacto[]> {
-    return this.httpClient.get<Contacto[]>(`${this.baseURL}/buscar/${nombre}`);
+  // Método para actualizar el contacto
+  actualizarContacto(usuarioId: number, contactoId: number, contacto: Contacto): Observable<ApiResponse<Contacto>> {
+    return this.httpClient.put<ApiResponse<Contacto>>(`${this.baseURL}/contactos/${usuarioId}/${contactoId}`, contacto);
   }
 
-  //Método para actualizar el contacto
-  actualizarContacto(contactoId: number, contacto: Contacto): Observable<Object> {
-    return this.httpClient.put(`${this.baseURL}/contactos/${contactoId}`, contacto);
-  }
-
-  //Método para eliminar un contacto
-  eliminarContacto(usuarioId: number, contactoId: number): Observable<Object> {
-    return this.httpClient.delete(`${this.baseURL}/contactos/${usuarioId}/${contactoId}`);
+  // Método para eliminar un contacto
+  eliminarContacto(usuarioId: number, contactoId: number): Observable<ApiResponse<Map<string, boolean>>> {
+    return this.httpClient.delete<ApiResponse<Map<string, boolean>>>(`${this.baseURL}/contactos/${usuarioId}/${contactoId}`);
   }
 }

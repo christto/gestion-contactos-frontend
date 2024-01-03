@@ -4,6 +4,7 @@ import { UserService } from '../user.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
+import { ApiResponse } from '../api-response';
 
 @Component({
   selector: 'app-registrar-contacto',
@@ -21,14 +22,15 @@ export class RegistrarContactoComponent implements OnInit {
   }
 
   guardarContacto() {
-    this.contactoServicio.registrarContacto(this.usuarioId, this.contacto).subscribe(dato => {
-      this.irALaListaDeContactos();
-    }, error => swal('Error', 'No se guardó el contacto. Error: Ya existe el número telefónico.', 'error'));
-  }
-
-  irALaListaDeContactos() {
-    this.router.navigate(['/contactos']);
-    swal('Contacto registrado', `El contacto ${this.contacto.nombre} ha sido registrado con exito`, 'success');
+    this.contactoServicio.registrarContacto(this.usuarioId, this.contacto).subscribe(
+      (result: ApiResponse<any>) => {
+        if (result.success) {
+          swal('Contacto registrado', result.message, 'success');
+          this.router.navigate(['/contactos']);
+        } else {
+          swal('Error', result.message, 'error')
+        }
+      });
   }
 
   onSubmit() {

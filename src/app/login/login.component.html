@@ -23,11 +23,9 @@
                     <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control" id="password"
                         [(ngModel)]="password" name="password" required placeholder="Digite su contraseña"
                         #nombre="ngModel">
-                    <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
                             <i [ngClass]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
                         </button>
-                    </div>
                 </div>
                 <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                     <div *ngIf="nombre.errors.required">
@@ -35,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-success" [disabled]="!loginForm.form.valid">Guardar</button>
+            <button class="btn btn-success" [disabled]="!loginForm.form.valid">Entrar</button>
         </form>
     </div>
 </div>

@@ -3,6 +3,8 @@ import { ContactoService } from './../contacto.service';
 import { Contacto } from './../contacto';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiResponse } from '../api-response';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-actualizar-contacto',
@@ -13,23 +15,34 @@ export class ActualizarContactoComponent implements OnInit {
 
   contactoId: number;
   contacto: Contacto = new Contacto();
-  constructor(private contactoService: ContactoService, private router: Router, private route: ActivatedRoute) { }
+
+  constructor(
+    private contactoService: ContactoService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private userService: UserService) { }
+
+  usuarioId: number = parseInt(this.userService.getUserId() || '0', 10);
 
   ngOnInit(): void {
     this.contactoId = this.route.snapshot.params['id'];
-    this.contactoService.obtenerContactoPorId(this.contactoId).subscribe(dato => {
-      this.contacto = dato;
-    });
-  }
-
-  irAlaListaDeContactos() {
-    this.router.navigate(['/contactos']);
-    swal('Contacto actualizado', `El contacto ${this.contacto.nombre} ha sido actualizado con exito`, `success`);
+    this.contactoService.obtenerContactoPorId(this.contactoId).subscribe(
+      (response: ApiResponse<any>) => {
+        if (response.success) {
+          this.contacto = response.result;
+        }
+      });
   }
 
   onSubmit() {
-    this.contactoService.actualizarContacto(this.contactoId, this.contacto).subscribe(dato => {
-      this.irAlaListaDeContactos();
-    }, error => swal('Error', 'No se actualizó el contacto. Error: Ya existe el número telefónico.', 'error'));
+    this.contactoService.actualizarContacto(this.usuarioId, this.contactoId, this.contacto).subscribe(
+      (result: ApiResponse<any>) => {
+        if (result.success) {
+          swal('Contacto actualizado', result.message, 'success');
+          this.router.navigate(['/contactos']);
+        } else {
+          swal('Error', result.message, 'error')
+        }
+      });
   }
 }

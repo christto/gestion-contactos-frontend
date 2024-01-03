@@ -4,6 +4,7 @@ import { Contacto } from './../contacto';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
+import { ApiResponse } from '../api-response';
 
 @Component({
   selector: 'app-lista-contactos',
@@ -15,7 +16,6 @@ export class ListaContactosComponent implements OnInit {
   contactos: Contacto[];
   textoBusqueda: string = '';
 
-  
   constructor(private contactoServicio: ContactoService, private router: Router, private userService: UserService) { }
 
   usuarioId: number = parseInt(this.userService.getUserId() || '0', 10);
@@ -29,9 +29,14 @@ export class ListaContactosComponent implements OnInit {
   }
 
   private obtenerContactos() {
-    this.contactoServicio.obtenerListaDeContactos(this.usuarioId).subscribe(dato => {
-      this.contactos = dato.sort((a, b) => a.nombre.localeCompare(b.nombre));
-    });
+    this.contactoServicio.obtenerListaDeContactos(this.usuarioId).subscribe(
+      (response: ApiResponse<any>) => {
+        if (response.success) {
+          this.contactos = response.result.sort((a, b) => a.nombre.localeCompare(b.nombre));
+        } else {
+          swal('Error', response.message, 'error');
+        }
+      });
   }
 
   eliminarContacto(contactoId: number) {
@@ -67,12 +72,18 @@ export class ListaContactosComponent implements OnInit {
   }
 
   buscarContactos() {
-    this.contactoServicio.obtenerListaDeContactos(this.usuarioId).subscribe(dato => {
-      this.contactos = dato.filter(contacto =>
-        contacto.nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase()) ||
-        contacto.telefono.toLowerCase().includes(this.textoBusqueda.toLowerCase())
-      ).sort((a, b) => a.nombre.localeCompare(b.nombre));
-    });
+    this.contactoServicio.obtenerListaDeContactos(this.usuarioId).subscribe(
+      (response: ApiResponse<any>) => {
+        if (response.success) {
+          this.contactos = response.result.filter(
+            contacto =>
+              contacto.nombre.toLowerCase().includes(this.textoBusqueda.toLowerCase()) ||
+              contacto.telefono.toLowerCase().includes(this.textoBusqueda.toLowerCase())
+          ).sort((a, b) => a.nombre.localeCompare(b.nombre));
+        } else {
+          swal('Error', response.message, 'error');
+        }
+      });
   }
 
   limpiarBusqueda() {
